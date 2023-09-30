@@ -16,6 +16,9 @@
     "@supabase/supabase-js": "^2.36.0",
     "encoding": "^0.1.13",
     "next": "latest",
+    "pdf-parse": "^1.1.1",
+    "pdf-parser": "^1.0.5",
+    "pdf-to-text": "^0.0.7",
     "react": "latest",
     "react-dom": "latest"
   },

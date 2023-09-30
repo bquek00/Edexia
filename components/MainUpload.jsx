@@ -15,11 +15,16 @@ export default function MainUpload({session}) {
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState(null)
   const [ready, setReady] = useState(false)
+  const [fid, setFid] = useState(null);
   const supabase = createClientComponentClient()
+
+  useEffect(() => {
+    setFid(Math.random())
+  }, []);
 
   async function markTest() {
     try {
-      const response = await fetch(`/api/test`); // Replace 'your-endpoint' with the actual endpoint URL
+      const response = await fetch(`/api/test?fid=${fid}`); // Replace 'your-endpoint' with the actual endpoint URL
       if (!response.ok) {
         throw new Error(`Request failed with status: ${response.status}`);
       }
@@ -60,8 +65,9 @@ const uploadFiles = async () => {
   setLoading(true);
 
   // Upload file here
+  console.log(fid)
   const fileExt = assignment.name.split('.').pop()
-  const filePath = `${session.user.id}/assignment.${fileExt}`
+  const filePath = `${session.user.id}/assignment-${fid}.${fileExt}`
  
   
   let { error: uploadError } = await supabase.storage.from('files').upload(filePath, assignment, {upsert: true})
@@ -111,7 +117,7 @@ const uploadFiles = async () => {
 
       <p className={`${missing && !ready ? "absolute" : "hidden"} text-rose-600 absolute top-basic`}>Missing file upload</p>
 
-      {ready && <div className='text-white w-full'>{JSON.stringify(results.data.session.user.id)}</div>}
+      {ready && <div className='text-white w-full'>{JSON.stringify(results)}</div>}
       
     </div>
   )
