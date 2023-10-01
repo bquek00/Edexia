@@ -8,9 +8,9 @@ export default function ResultTable({data}) {
             <table className='bg-white w-9/12 m-auto'>
               <thead>
                 <tr>
-                  <th className='border-2 border-blue-800' >Category</th>
-                  <th className='border-2 border-blue-800'>Areas for Improvement</th>
-                  <th className='border-2 border-blue-800'>Grade</th>
+                  <th className='border-2 border-gray-800' >Category</th>
+                  <th className='border-2 border-gray-800'>Areas for Improvement</th>
+                  <th className='border-2 border-gray-800'>Grade</th>
                 </tr>
               </thead>
               <tbody>
@@ -21,9 +21,9 @@ export default function ResultTable({data}) {
                     <Fragment key={index}>
                       {value.map((item, subIndex) => (
                         <tr key={subIndex}>
-                          <td className='border-2 border-blue-800 p-2 align-top'>{key}</td>
-                          <td className='border-2 border-blue-800 p-2 align-top'>{item['Areas for Improvement']}</td>
-                          <td className='border-2 border-blue-800 p-2 align-top'>{item['Grade']}</td>
+                          <td className='border-2 border-gray-800 p-2 align-top'>{key}</td>
+                          <td className='border-2 border-gray-800 p-2 align-top'>{item['Areas for Improvement']}</td>
+                          <td className='border-2 border-gray-800 p-2 align-top'>{item['Grade']}</td>
                         </tr>
                       ))}
                     </Fragment>

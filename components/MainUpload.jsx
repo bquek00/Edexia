@@ -90,25 +90,19 @@ const uploadFiles = async () => {
 };
 
   return (
-    <div className='flex justify-center w-full h-screen items-center bg-black overflow-y-scroll overflow-x-hidden'>
+    <div className='flex justify-center w-full h-screen items-center bg-gradient-to-r from-violet-950 via-purple-500 to-fuchsia-500
+    overflow-y-scroll overflow-x-hidden'>
       <div className={`${ready ? "hidden": "flex"} flex justify-center w-full h-1/4 space-x-20 text-white`}>
         <UploadCard title="Upload Assignment" onUpload={handleAssignment}/>
         <UploadCard title="Upload Rubric" onUpload={handleRubric}/>
       </div>
 
       <button 
-        className={`${loading || ready ? "hidden": "absolute"} text-start text-white m-1 p-1  bg-blue-500 hover:bg-blue-400
-        focus:ring-blue-300 rounded-lg absolute top-3/4`}
+        className={`${loading || ready ? "hidden": "absolute"} text-start text-white m-1 p-1 border-2 text-lg p-2 hover:bg-black/[.3]
+        focus:ring-violet-300 rounded-lg absolute top-3/4`}
         onClick={uploadFiles}>
             Mark
       </button>
-
-      <form action="/auth/signout" method="post" className={`${loading || ready ? "hidden": "absolute"} text-start text-white m-1 p-1  bg-blue-500 hover:bg-blue-400
-        focus:ring-blue-300 rounded-lg absolute top-3/4 mt-10`}>
-      <button  type="submit">
-            Sesh: {session?.user.email}
-      </button>
-                                </form>
 
       <p 
         className={`${loading && !ready ? "absolute": "hidden"} text-start text-white m-1 top-3/4`}>

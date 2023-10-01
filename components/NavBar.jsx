@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 
 
-export default function NavBar() {
+export default function NavBar({logout}) {
     const [mobNav, setMobNav] = useState(false);
     const genericHamburgerLine = `h-1 w-6 my-1 rounded-full bg-black transition ease transform duration-300`;
 
@@ -56,10 +56,19 @@ export default function NavBar() {
         <Link href="#" className="block py-2 pl-3 pr-4 hover:bg-white/[.1] rounded " aria-current="page">Demo</Link>
       </li>
       <li>
-        <Link href="#" className="block py-2 pl-3 pr-4  rounded  hover:bg-white/[.1] rounded">Workspace</Link>
+        <a href="/" className="block py-2 pl-3 pr-4  rounded  hover:bg-white/[.1] rounded">Workspace</a>
       </li>
       <li>
         <Link href="#" className="block py-2 pl-3 pr-4 rounded   hover:bg-white/[.1] rounded">Contact</Link>
+      </li>
+      <li>
+          <form action={logout ? "/auth/signout": "/login"} method={logout ? "post": "/get"}>
+              <button type="submit"
+              //onClick={() => handleLinkClick("account")}
+              className={
+                  `block  w-full text-left py-2 pl-3 pr-4 rounded hover:bg-white/[.1]`}
+              >{logout ? "Logout" : "Login"} </button>
+          </form>
       </li>
 
     </ul>
