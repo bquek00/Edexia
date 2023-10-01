@@ -22,6 +22,7 @@ async function generateCriteria(criteria) {
 
    console.log(prompt)
    let response = ''
+   try {
    const stream = await openai.chat.completions.create({
     model: 'gpt-4',
     messages: [{ role: 'user', content: prompt }],
@@ -30,6 +31,8 @@ async function generateCriteria(criteria) {
    })
    for await (const part of stream) {
     response += (part.choices[0]?.delta?.content || '');
+  } } catch (error) {
+    console.log(error)
   }
   console.log("hi")
   return(response)
