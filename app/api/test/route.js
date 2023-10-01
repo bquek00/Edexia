@@ -14,8 +14,12 @@ const openai = new OpenAI({
 async function generateCriteria(criteria) {
 	const prompt = `
   
-  Given the marking rubric below that is text extracted form a pdf of a rubric, using only the structure of the text without guessing its meaning, please extract and structure the criteria and their associated grade descriptions into the following JSON format: [{criteria_name: [{grade: description}]}]. Ignore any data not related to the criteria:
-  EXTRACT THE CRITERIA EXACTLY AS PROVIDED. 
+  Given the marking rubric below that is text extracted form a pdf of a rubric, please extract and structure the criteria and their associated grade descriptions into the following JSON format: [{criteria_name: [{grade: description}]}]. 
+  Ignore any data not related to the criteria:
+  EXTRACT THE CRITERIA EXACTLY AS PROVIDED.
+   MAKE SURE TO EXTRACT ALL CRITERION AND GRADE BANDS.
+  DO NOT MAKE ANY CHANGES to the original.
+  DO NOT ADD ANY NEW CRITERIA 
   The output should only contain the json and NOTHING ELSE.
   Criteria: ${criteria}
       `
@@ -24,7 +28,7 @@ async function generateCriteria(criteria) {
    let response = ''
    try {
    const stream = await openai.chat.completions.create({
-    model: 'gpt-4',
+    model: 'gpt-3.5-turbo-16k',
     messages: [{ role: 'user', content: prompt }],
     stream: true,
     temperature: 0.2,
@@ -81,7 +85,7 @@ async function generateGrade(criteria, assignment) {
     
    let response = ''
    const stream = await openai.chat.completions.create({
-    model: 'gpt-4',
+    model: 'gpt-3.5-turbo-16k',
     messages: [{ role: 'user', content: prompt }],
     stream: true,
     temperature: 0.2,
