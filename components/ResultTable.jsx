@@ -3,6 +3,8 @@ import { Fragment } from 'react';
 export default function ResultTable({data}) {
 
     return (
+     
+      
             <table className='bg-white w-9/12 m-auto'>
               <thead>
                 <tr>
@@ -28,7 +30,7 @@ export default function ResultTable({data}) {
                   );
                 })}
               </tbody>
-            </table>
+            </table> 
           );
 };
 

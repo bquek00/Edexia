@@ -77,7 +77,7 @@ const uploadFiles = async () => {
   }
 
   const rubricExt = rubric.name.split('.').pop()
-  const rubricPath = `${session.user.id}/rubric.${rubricExt}`
+  const rubricPath = `${session.user.id}/rubric-${fid}.${rubricExt}`
  
   
   let { error: rubricError} = await supabase.storage.from('files').upload(rubricPath, rubric, {upsert: true})
@@ -117,10 +117,10 @@ const uploadFiles = async () => {
 
       <p className={`${missing && !ready ? "absolute" : "hidden"} text-rose-600 absolute top-basic`}>Missing file upload</p>
 
-      {ready && <div className='text-white w-full'>{JSON.stringify(results)}</div>}
+      {ready && <ResultTable data={results.data}/>}
       
     </div>
   )
 }
 
-// {ready && <ResultTable data={results}/>}
+
