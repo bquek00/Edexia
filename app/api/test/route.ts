@@ -25,6 +25,7 @@ async function generateCriteria(criteria: string,) {
     model: 'gpt-4',
     messages: [{ role: 'user', content: prompt }],
     stream: true,
+    temperature: 0.2,
    })
    for await (const part of stream) {
     response += (part.choices[0]?.delta?.content || '');
@@ -43,9 +44,26 @@ async function generateGrade(criteria: string, assignment: string) {
   How can I improve the given assignment given the criteria
   The goal of this is to help a student improve. Therefore, No matter what grade or how good the assignment is, you must find and give indepth and unique feedback for areas for improvement. You MUST always give tips for improvement no matter what. 
   Feedback must use examples from student's work and be unique for each student. 
-  Feedback must be consistent.
   Be strict.
-  YOUR RESPONSE MUST CONTAIN NOTHING BUT THE FOLLOWING JSON format: [{each_criteria_name: [{Grade: given_grade, Areas for Improvement: What to improve (MUST HAVE}]}] 
+  YOUR RESPONSE MUST CONTAIN NOTHING BUT THE EXACT FOLLOWING JSON format: [{each_criteria_name: [{Grade: given_grade, Areas for Improvement: What to improve (MUST HAVE}]}] 
+  
+
+  Example:
+    [
+      {
+      "Reflective thinking": [{
+        "Grade": "B",
+        "Areas for Improvement": "Feedback goes here"
+      }]
+      }, 
+      {
+        "Grammar": [{
+          "Grade": "C",
+          "Areas for Improvement": "Feedback goes here"
+        }],
+      }
+    ]
+  
   Keep the criteria format EXACTLY THE SAME with the criteria text provided and DO NOT MAKE ANY CHANGES TO THE CRITERIA STRUCTURE.
   Criteria is provided in the format [{criteria_name: [{grade: description}]}].
 
@@ -58,9 +76,10 @@ async function generateGrade(criteria: string, assignment: string) {
     
    let response = ''
    const stream = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo-16k',
+    model: 'gpt-4',
     messages: [{ role: 'user', content: prompt }],
     stream: true,
+    temperature: 0.2,
    })
    for await (const part of stream) {
     response += (part.choices[0]?.delta?.content || '');
