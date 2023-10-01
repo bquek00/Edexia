@@ -17,8 +17,11 @@ export default function NavBar({logout}) {
 
     return (
        
-<nav className=" dark:bg-gray-900 fixed z-20 top-0 left-0 text-white w-full">
-  <div className="w-full flex flex-wrap items-center justify-between mx-auto py-4">
+<nav className="fixed z-20 top-0 left-0 text-white w-full">
+
+  <div className="w-full flex flex-wrap items-center justify-between mx-auto py-4 pt-0">
+  
+  <div className='flex w-full items-center justify-between bg-black pt-4 bg-gradient-to-r from-violet-950 via-purple-500 to-fuchsia-500'>
   <a href="/" className="flex items-center ml-4">
     <Image
         src="/logo.png"
@@ -50,7 +53,9 @@ export default function NavBar({logout}) {
         />
     </button>
   </div>
-  <div className={`transition ease transform duration-300 ${mobNav ? 'opacity-100 ' : 'opacity-0 '} items-center justify-between w-full " id="navbar-sticky`}>
+  </div>
+
+  <div className={`transition ease transform duration-300 ${mobNav ? 'opacity-100' : 'opacity-0'} items-center justify-between w-full " id="navbar-sticky`}>
     <ul className="flex flex-col font-medium border rounded-lg bg-gray-800">
       <li>
         <Link href="#" className="block py-2 pl-3 pr-4 hover:bg-white/[.1] rounded " aria-current="page">Demo</Link>
@@ -59,7 +64,7 @@ export default function NavBar({logout}) {
         <a href="/" className="block py-2 pl-3 pr-4  rounded  hover:bg-white/[.1] rounded">Workspace</a>
       </li>
       <li>
-        <Link href="#" className="block py-2 pl-3 pr-4 rounded   hover:bg-white/[.1] rounded">Contact</Link>
+        <Link href="contact" className="block py-2 pl-3 pr-4 rounded   hover:bg-white/[.1] rounded">Contact</Link>
       </li>
       <li>
           <form action={logout ? "/auth/signout": "/login"} method={logout ? "post": "/get"}>

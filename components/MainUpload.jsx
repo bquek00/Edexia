@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer' 
 import ResultTable from '@/components/ResultTable'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import Loader from './Loader';
 
 export default function MainUpload({session}) {
   const [assignment, setAssignment] = useState(null)
@@ -90,11 +91,11 @@ const uploadFiles = async () => {
 };
 
   return (
-    <div className='flex justify-center w-full h-screen items-center bg-gradient-to-r from-violet-950 via-purple-500 to-fuchsia-500
-    overflow-y-scroll overflow-x-hidden'>
+    <div className={`flex justify-center w-full h-screen items-center bg-gradient-to-r from-violet-950 via-purple-500 to-fuchsia-500
+    overflow-y-scroll overflow-x-hidden`}>
       <div className={`${ready ? "hidden": "flex"} flex justify-center w-full h-1/4 space-x-20 text-white`}>
-        <UploadCard title="Upload Assignment" onUpload={handleAssignment}/>
-        <UploadCard title="Upload Rubric" onUpload={handleRubric}/>
+        <UploadCard title="Upload Assignment" onUpload={handleAssignment} loading={loading}/>
+        <UploadCard title="Upload Rubric" onUpload={handleRubric} loading={loading}/>
       </div>
 
       <button 
@@ -105,9 +106,13 @@ const uploadFiles = async () => {
       </button>
 
       <p 
-        className={`${loading && !ready ? "absolute": "hidden"} text-start text-white m-1 top-3/4`}>
-            Loading
+        className={`${loading && !ready ? "absolute": "hidden"} text-start text-white m-1 top-1/4`}>
+            Marking your assignment. Please do not close the window. 
       </p>
+      <div 
+        className={`${loading && !ready ? "absolute": "hidden"} text-start text-white m-1 top-1/4 mt-10`}>
+           <Loader />
+      </div>
 
       <p className={`${missing && !ready ? "absolute" : "hidden"} text-rose-600 absolute top-basic`}>Missing file upload</p>
 

@@ -5,7 +5,7 @@ export default function ResultTable({data}) {
     return (
      
       
-            <table className='bg-white w-9/12 m-auto'>
+            <table className='bg-white w-9/12 m-auto mt-20'>
               <thead>
                 <tr>
                   <th className='border-2 border-gray-800' >Category</th>
@@ -13,7 +13,7 @@ export default function ResultTable({data}) {
                   <th className='border-2 border-gray-800'>Grade</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className='overflow-y-auto h-36'>
                 {data.map((entry, index) => {
                   const key = Object.keys(entry)[0];
                   const value = entry[key];

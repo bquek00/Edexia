@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from "next/navigation";
 import Link from 'next/link'
+import Loader from '@/components/Loader';
 
 
 export default function Register() {
@@ -11,6 +12,7 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -19,6 +21,7 @@ export default function Register() {
             alert("Passwords do not match");
         } else {
             try{
+                setLoading(true)
                 const { error, data } = await supabase.auth.signUp({email: email, password: password });
                 if (error) {
                     alert(`error: ${error.message}`);
@@ -30,7 +33,7 @@ export default function Register() {
             } catch (error) {
                 console.log("Register error: ", error.message);
             } finally {
-                    ;
+                    setLoading(true)
             }
         }
     }
@@ -64,10 +67,11 @@ export default function Register() {
                             </div>
 
                             <div className="flex justify-center">
-     
+
+                            {loading ? (<Loader/>) : (
                                 <button type="submit" className="w-full text-white bg-violet-600 hover:bg-violet-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-primary-800" >
                                 Create an Account
-                                </button>
+                                </button>        )}
        
                             </div>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">

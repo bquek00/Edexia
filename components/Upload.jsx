@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 
 
-export default function UploadCard({title, onUpload}) {
+export default function UploadCard({title, onUpload, loading}) {
     const inputFileRef = useRef(null);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function UploadCard({title, onUpload}) {
     return (
 
 
-        <div className='h-full flex flex-col justify-center items-center w-4/12 border-2 rounded-lg w-fit px-10 gap-x-80'>
+        <div className={`${loading ? "hidden": "block"} h-full flex flex-col justify-center items-center w-4/12 border-2 rounded-lg w-fit px-10 gap-x-80`}>
             <p className="text-center">{title}</p>
 
             <input className="w-56"

@@ -3,17 +3,20 @@ import { useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from "next/navigation";
 import Link from 'next/link'
+import Loader from '@/components/Loader';
 
 export default function Login() {
     const supabase = createClientComponentClient()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
     
         try {
+          setLoading(true);  
           const { error, data } = await supabase.auth.signInWithPassword({email: email, password: password });
           if (error) {
             console.log('Login error:', error.message);
@@ -25,7 +28,7 @@ export default function Login() {
         } catch (error) {
           console.error('Login error:', error.message);
         } finally {
-            ;
+            setLoading(false);
     }
     };
 
@@ -53,9 +56,11 @@ export default function Login() {
                         
                             <div className="flex justify-center">
                            
+                            {loading ? (<Loader/>) : (
                             <button type="submit" className="w-full text-white bg-violet-600 hover:bg-violet-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-primary-800">
                                 Sign in
                             </button>
+                            )}
                 
                            </div>
                            
