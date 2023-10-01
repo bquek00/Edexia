@@ -53,7 +53,6 @@ async function generateGrade(criteria, assignment) {
   How can I improve the given assignment given the criteria
   The goal of this is to help a student improve. Therefore, No matter what grade or how good the assignment is, you must find and give indepth and unique feedback for areas for improvement. You MUST always give tips for improvement no matter what. 
   Feedback must use examples from student's work and be unique for each student. 
-  Be strict.
   YOUR RESPONSE MUST CONTAIN NOTHING BUT THE EXACT FOLLOWING JSON format: [{each_criteria_name: [{Grade: given_grade, Areas for Improvement: What to improve (MUST HAVE}]}] 
   
 
