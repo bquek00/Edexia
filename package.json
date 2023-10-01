@@ -14,12 +14,12 @@
     "@supabase/auth-ui-react": "^0.4.5",
     "@supabase/auth-ui-shared": "^0.1.7",
     "@supabase/supabase-js": "^2.36.0",
+    "@types/pdf-parse": "^1.1.2",
     "encoding": "^0.1.13",
     "langchain": "^0.0.156",
     "next": "latest",
     "openai": "^4.11.0",
     "pdf-parse": "^1.1.1",
-    "pdf-parser": "^1.0.5",
     "pdf-to-text": "^0.0.7",
     "react": "latest",
     "react-dom": "latest"
@@ -29,6 +29,7 @@
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "pdf-parser": "^1.0.5",
     "postcss": "latest",
     "tailwindcss": "latest"
   }

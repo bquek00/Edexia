@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import { pdf2json } from 'pdf-parser';
+import { pdf2json } from './pdf-parser';
 import OpenAI from 'openai';
+
 
 export const dynamic = 'force-dynamic'
 
@@ -160,7 +161,7 @@ export async function GET(request, res) {
       // Handle error accordingly
       return NextResponse.json({ error: 'Failed to process PDF' });
   }
- //console.log(allText)
+ console.log(allText)
  // console.log(rubricText)
  const response = await generateGrade(rubricText, allText);
  //console.log(response)
