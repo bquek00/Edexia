@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import { pdf2json } from './pdf-parser';
+import { pdf2json }  from 'pdf-parser';
 import OpenAI from 'openai';
 
 
@@ -11,7 +11,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API, // defaults to process.env["OPENAI_API_KEY"]
 });
 
-async function generateCriteria(criteria: string,) {
+async function generateCriteria(criteria) {
 	const prompt = `
   
   Given the marking rubric below that is text extracted form a pdf of a rubric, using only the structure of the text without guessing its meaning, please extract and structure the criteria and their associated grade descriptions into the following JSON format: [{criteria_name: [{grade: description}]}]. Ignore any data not related to the criteria:
@@ -36,7 +36,7 @@ async function generateCriteria(criteria: string,) {
 }
 
 
-async function generateGrade(criteria: string, assignment: string) {
+async function generateGrade(criteria, assignment) {
   let rubric= await generateCriteria(criteria);
 
 	const prompt = `
