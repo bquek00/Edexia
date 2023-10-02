@@ -74,7 +74,7 @@ const uploadFiles = async () => {
 
   if (fileExt !== "pdf" || rubricExt !== "pdf") {
     setMissing(true);
-    setMessage("Files must be pdf and end with .pdf extension")
+    setMessage("Files must be pdf.")
     return
   }
 
