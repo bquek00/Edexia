@@ -17,6 +17,7 @@ export default function MainUpload({session}) {
   const [results, setResults] = useState(null)
   const [ready, setReady] = useState(false)
   const [fid, setFid] = useState(null);
+  const [message, setMessage] = useState("Missing file upload")
   const supabase = createClientComponentClient()
 
   useEffect(() => {
@@ -44,26 +45,24 @@ export default function MainUpload({session}) {
 
 const handleAssignment = (event) => {
   const file = event.target.files[0];
-  if (file) {
+  //if (file) {
       setAssignment(file);
-  }
+  //}
 }
 
 const handleRubric = (event) => {
   const file = event.target.files[0];
-  if (file) {
+  //if (file) {
       setRubric(file);
-  }
+  //}
 }
 
 const uploadFiles = async () => {
   if (!assignment || !rubric) {
     setMissing(true);
+    setMessage("Missing file upload")
     return
   }
-
-  setMissing(false)
-  setLoading(true);
 
   // Upload file here
   console.log(fid)
@@ -74,8 +73,13 @@ const uploadFiles = async () => {
   const rubricPath = `${session.user.id}/rubric-${fid}.${rubricExt}`
 
   if (fileExt !== "pdf" || rubricExt !== "pdf") {
-    console.log("error")
+    setMissing(true);
+    setMessage("Files must be pdf and end with .pdf extension")
+    return
   }
+
+  setMissing(false)
+  setLoading(true);
  
   
   let { error: uploadError } = await supabase.storage.from('files').upload(filePath, assignment, {upsert: true})
@@ -118,7 +122,7 @@ const uploadFiles = async () => {
            <Loader />
       </div>
 
-      <p className={`${missing && !ready ? "absolute" : "hidden"} font-bold text-rose-600 absolute top-basic`}>Missing file upload</p>
+      <p className={`${missing && !ready ? "absolute" : "hidden"} font-bold text-white absolute top-basic text-center text-shadow`}>{message}</p>
 
       {ready && <ResultTable data={results.data}/>}
       
