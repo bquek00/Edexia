@@ -15,6 +15,7 @@ const openai = new OpenAI({
 async function generateCriteria(criteria) {
 	const prompt = `
   
+  
   Given the marking rubric below that is text extracted form a pdf of a rubric, please extract and structure the criteria and their associated grade descriptions into the following JSON format: [{criteria_name: [{grade: description}]}]. 
   Ignore any data not related to the criteria:
   EXTRACT THE CRITERIA EXACTLY AS PROVIDED.
@@ -22,6 +23,7 @@ async function generateCriteria(criteria) {
   DO NOT MAKE ANY CHANGES to the original.
   DO NOT ADD ANY NEW CRITERIA 
   The output should only contain the json and NOTHING ELSE.
+  Use the exact same names as the Criteria. DO NOT GIVE ANYTHING EXTRA OR MAKE ANYTHING UP
   Criteria: ${criteria}
       `
 
@@ -46,14 +48,15 @@ async function generateCriteria(criteria) {
 
 
 async function generateGrade(criteria, assignment) {
-  let rubric= await generateCriteria(criteria);
+  //let rubric= await generateCriteria(criteria);
 
 	const prompt = `
+  You are a knowledgeable and thorough teacher, Edexia, who aims to provide strict feedback and insightful evaluations on how students can improve assignments. 
   
   Instructions: 
   How can I improve the given assignment given the criteria
   The goal of this is to help a student improve. Therefore, No matter what grade or how good the assignment is, you must find and give indepth and unique feedback for areas for improvement. You MUST always give tips for improvement no matter what. 
-  Feedback must use examples from student's work and be unique for each student. 
+  Feedback MUST use examples from student's work and be unique for each student. 
   YOUR RESPONSE MUST CONTAIN NOTHING BUT THE EXACT FOLLOWING JSON format: [{each_criteria_name: [{Grade: given_grade, Areas for Improvement: What to improve (MUST HAVE}]}] 
   
 
@@ -74,11 +77,10 @@ async function generateGrade(criteria, assignment) {
     ]
   
   Keep the criteria format EXACTLY THE SAME with the criteria text provided and DO NOT MAKE ANY CHANGES TO THE CRITERIA STRUCTURE.
-  Criteria is provided in the format [{criteria_name: [{grade: description}]}].
 
   Assignment: ${assignment}
 
-  Criteria: ${rubric}
+  Criteria: ${criteria}
       `
 
   console.log(prompt)
@@ -88,7 +90,7 @@ async function generateGrade(criteria, assignment) {
     model: 'gpt-3.5-turbo-16k',
     messages: [{ role: 'user', content: prompt }],
     stream: true,
-    temperature: 0.2,
+    temperature: 0.1,
    })
    for await (const part of stream) {
     response += (part.choices[0]?.delta?.content || '');
