@@ -55,13 +55,14 @@ export default function NavBar({logout}) {
   </div>
   </div>
 
-  <div className={`transition ease transform duration-300 ${mobNav ? 'opacity-100' : 'opacity-0'} items-center justify-between w-full " id="navbar-sticky`}>
+  <div className={`transition ease transform duration-300 ${mobNav ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'} 
+  items-center justify-between w-full " id="navbar-sticky`}>
     <ul className="flex flex-col font-medium border rounded-lg bg-gray-800">
       <li>
-        <Link href="#" className="block py-2 pl-3 pr-4 hover:bg-white/[.1] rounded " aria-current="page">Demo</Link>
+        <Link href="/demo" className="block py-2 pl-3 pr-4 hover:bg-white/[.1] rounded " aria-current="page">Demo</Link>
       </li>
       <li>
-        <a href="/" className="block py-2 pl-3 pr-4  rounded  hover:bg-white/[.1] rounded">Workspace</a>
+        <a href={logout ? "/" : "/login"}  className="block py-2 pl-3 pr-4  rounded  hover:bg-white/[.1] rounded">Workspace</a>
       </li>
       <li>
         <Link href="contact" className="block py-2 pl-3 pr-4 rounded   hover:bg-white/[.1] rounded">Contact</Link>

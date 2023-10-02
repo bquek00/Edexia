@@ -31,4 +31,23 @@
   100% { transform: rotate(360deg); }
 }
 
+.video-frame {
+  width: 320px;  /* Adjust as needed */
+  height: 180px; /* Adjust as needed */
+}
+
+@media (min-width: 600px) {
+  .video-frame {
+      width: 560px;  /* Adjust as needed for 480px */
+      height: 315px; /* Adjust as needed for 480px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .video-frame {
+      width: 560px;
+      height: 315px;
+  }
+}
+
 

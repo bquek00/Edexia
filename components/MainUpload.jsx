@@ -93,7 +93,8 @@ const uploadFiles = async () => {
   return (
     <div className={`flex justify-center w-full h-screen items-center bg-gradient-to-r from-violet-950 via-purple-500 to-fuchsia-500
     overflow-y-scroll overflow-x-hidden`}>
-      <div className={`${ready ? "hidden": "flex"} flex justify-center w-full h-1/4 space-x-20 text-white`}>
+      <div className={`${ready ? "hidden": "flex"} flex justify-center w-full h-2/5 lg:h-1/4 items-center space-y-10 lg:space-y-0
+      lg:space-x-20 text-white flex-col lg:flex-row`}>
         <UploadCard title="Upload Assignment" onUpload={handleAssignment} loading={loading}/>
         <UploadCard title="Upload Rubric" onUpload={handleRubric} loading={loading}/>
       </div>

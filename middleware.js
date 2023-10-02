@@ -15,8 +15,12 @@ export async function middleware(req) {
   }
 
   // if user is not signed in and the current path is not / redirect the user to /
-  if (!user && req.nextUrl.pathname !== '/register' && req.nextUrl.pathname !== '/login' && req.nextUrl.pathname !== '/contact') {
+  if (!user && req.nextUrl.pathname !== '/register' && req.nextUrl.pathname !== '/login' && req.nextUrl.pathname !== '/contact' && req.nextUrl.pathname !== '/demo') {
+    if (req.nextUrl.pathname === '/') {
+      return NextResponse.redirect(new URL('/demo', req.url))
+    } else {
     return NextResponse.redirect(new URL('/login', req.url))
+    }
   }
 
   await supabase.auth.getSession()
@@ -24,5 +28,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ['/', '/login', '/register', '/contact'],
+  matcher: ['/', '/login', '/register', '/contact', '/demo'],
 }
