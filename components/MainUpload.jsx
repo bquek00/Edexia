@@ -101,7 +101,7 @@ const uploadFiles = async () => {
 
       <button 
         className={`${loading || ready ? "hidden": "absolute"} text-start text-white m-1 p-1 border-2 text-lg p-2 hover:bg-black/[.3]
-        focus:ring-violet-300 rounded-lg absolute top-3/4`}
+        focus:ring-violet-300 rounded-lg absolute top-mob lg:top-3/4`}
         onClick={uploadFiles}>
             Mark
       </button>
@@ -115,7 +115,7 @@ const uploadFiles = async () => {
            <Loader />
       </div>
 
-      <p className={`${missing && !ready ? "absolute" : "hidden"} text-rose-600 absolute top-basic`}>Missing file upload</p>
+      <p className={`${missing && !ready ? "absolute" : "hidden"} font-bold text-rose-600 absolute top-basic`}>Missing file upload</p>
 
       {ready && <ResultTable data={results.data}/>}
       

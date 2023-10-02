@@ -21,6 +21,7 @@ module.exports = {
       inset: {
         basic: '20%',
         phone: '10%',
+        mob: '90%'
       },
     },
   },
