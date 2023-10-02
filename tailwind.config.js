@@ -23,6 +23,9 @@ module.exports = {
         phone: '10%',
         mob: '90%'
       },
+      fontSize: {
+        responsive: '2vw',
+      },
     },
   },
   plugins: [],

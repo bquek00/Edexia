@@ -5,7 +5,7 @@ export default function ResultTable({data}) {
     return (
      
       
-            <table className='bg-white w-9/12 m-auto mt-20'>
+            <table className='bg-white w-9/12 m-auto mt-20 text-responsive md:text-base'>
               <thead>
                 <tr>
                   <th className='border-2 border-gray-800' >Category</th>

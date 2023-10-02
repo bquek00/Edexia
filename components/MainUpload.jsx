@@ -69,6 +69,13 @@ const uploadFiles = async () => {
   console.log(fid)
   const fileExt = assignment.name.split('.').pop()
   const filePath = `${session.user.id}/assignment-${fid}.${fileExt}`
+
+  const rubricExt = rubric.name.split('.').pop()
+  const rubricPath = `${session.user.id}/rubric-${fid}.${rubricExt}`
+
+  if (fileExt !== "pdf" || rubricExt !== "pdf") {
+    console.log("error")
+  }
  
   
   let { error: uploadError } = await supabase.storage.from('files').upload(filePath, assignment, {upsert: true})
@@ -76,10 +83,6 @@ const uploadFiles = async () => {
   if (uploadError) {
     throw uploadError
   }
-
-  const rubricExt = rubric.name.split('.').pop()
-  const rubricPath = `${session.user.id}/rubric-${fid}.${rubricExt}`
- 
   
   let { error: rubricError} = await supabase.storage.from('files').upload(rubricPath, rubric, {upsert: true})
 
@@ -107,11 +110,11 @@ const uploadFiles = async () => {
       </button>
 
       <p 
-        className={`${loading && !ready ? "absolute": "hidden"} text-start text-white m-1 top-1/4`}>
+        className={`${loading && !ready ? "absolute": "hidden"} text-center lg:text-start text-white m-1 top-1/4`}>
             Marking your assignment. Please do not close the window. 
       </p>
       <div 
-        className={`${loading && !ready ? "absolute": "hidden"} text-start text-white m-1 top-1/4 mt-10`}>
+        className={`${loading && !ready ? "absolute": "hidden"} text-start text-white m-1 top-1/4 mt-20`}>
            <Loader />
       </div>
 
