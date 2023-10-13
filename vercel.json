@@ -1,6 +1,6 @@
 {
     "functions": {
-      "app/api/test": {
+      "app/api/test/route.js": {
         "maxDuration": 300
       }
     }
