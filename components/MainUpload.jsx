@@ -25,6 +25,7 @@ export default function MainUpload({session}) {
   }, []);
 
   async function markTest() {
+    console.log("Marking")
     try {
       const response = await fetch(`/api/test?fid=${fid}`); // Replace 'your-endpoint' with the actual endpoint URL
       if (!response.ok) {
