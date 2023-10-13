@@ -22,6 +22,7 @@ async function generateCriteria(criteria) {
   DO NOT ADD ANY NEW CRITERIA 
   Use the exact same names as the Criteria. DO NOT GIVE ANYTHING EXTRA OR MAKE ANYTHING UP
   ONLY PROVIDE RESPONSE IN THE FOLLOWING JSON format: [{criteria_name: [{grade: description}]}]
+  If the given input does not look like a criteria only output null
   Criteria: ${criteria}
       `
    let response = ''
@@ -37,6 +38,7 @@ async function generateCriteria(criteria) {
   } } catch (error) {
     console.log(error)
   }
+  console.log(response)
   return(response)
 
 }
