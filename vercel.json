@@ -1,6 +1,6 @@
 {
     "functions": {
-      "api/test.js": {
+      "app/api/test": {
         "maxDuration": 300
       }
     }
