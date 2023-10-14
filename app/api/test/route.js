@@ -38,7 +38,6 @@ async function generateCriteria(criteria) {
   } } catch (error) {
     console.log(error)
   }
-  console.log(response)
   return(response)
 
 }
@@ -47,6 +46,9 @@ async function generateCriteria(criteria) {
 async function generateGrade(criteria, assignment) {
   console.log("loading criteria")
   let rubric= await generateCriteria(criteria);
+  if (rubric.trim().toLowerCase() === 'null') {
+    return(null)
+  }
 
 	const prompt = `
   You are a knowledgeable and thorough teacher, Edexia, who aims to provide strict feedback and insightful evaluations on how students can improve assignments. 
@@ -174,6 +176,7 @@ export async function GET(request, res) {
  const response = await generateGrade(rubricText, allText);
 
  const obj = JSON.parse(response);
+ console.log("done")
 
   return NextResponse.json({ data: obj})
 }
