@@ -14,48 +14,52 @@ const openai = new OpenAI({
 
 async function generateCriteria(criteria) {
 	const prompt = `
-  
-  
   Given the marking rubric below that is text extracted form a pdf of a rubric, please extract and structure the criteria and their associated grade descriptions into the following JSON format: [{criteria_name: [{grade: description}]}]. 
   Ignore any data not related to the criteria:
   EXTRACT THE CRITERIA EXACTLY AS PROVIDED.
-   MAKE SURE TO EXTRACT ALL CRITERION AND GRADE BANDS.
+  MAKE SURE TO EXTRACT ALL CRITERION AND GRADE BANDS.
   DO NOT MAKE ANY CHANGES to the original.
   DO NOT ADD ANY NEW CRITERIA 
-  The output should only contain the json and NOTHING ELSE.
   Use the exact same names as the Criteria. DO NOT GIVE ANYTHING EXTRA OR MAKE ANYTHING UP
+  ONLY PROVIDE RESPONSE IN THE FOLLOWING JSON format: [{criteria_name: [{grade: description}]}]
+  If the given input does not look like a criteria only output null
   Criteria: ${criteria}
       `
-
-   console.log(prompt)
    let response = ''
    try {
    const stream = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo-16k',
+    model: 'gpt-4',
     messages: [{ role: 'user', content: prompt }],
     stream: true,
-    temperature: 0.2,
+    temperature: 0.1,
    })
    for await (const part of stream) {
     response += (part.choices[0]?.delta?.content || '');
   } } catch (error) {
     console.log(error)
   }
-  console.log("hi")
   return(response)
 
 }
 
 
 async function generateGrade(criteria, assignment) {
-  //let rubric= await generateCriteria(criteria);
+  console.log("loading criteria")
+  let rubric= await generateCriteria(criteria);
+  if (rubric.trim().toLowerCase() === 'null') {
+    return(null)
+  }
 
 	const prompt = `
   You are a knowledgeable and thorough teacher, Edexia, who aims to provide strict feedback and insightful evaluations on how students can improve assignments. 
   
   Instructions: 
   How can I improve the given assignment given the criteria
-  The goal of this is to help a student improve. Therefore, No matter what grade or how good the assignment is, you must find and give indepth and unique feedback for areas for improvement. You MUST always give tips for improvement no matter what. 
+  The goal of this is to help a student improve. Therefore, 
+  No matter what grade or how good the assignment is, you must find and give indepth and unique feedback for areas for improvement. 
+  You MUST always give tips for improvement no matter what. 
+  Your feedback must be thourough and descriptive
+  For areas of improvement on each criteria, provided specific examples from the assignments and what should be done to improve. 
   YOUR RESPONSE MUST CONTAIN NOTHING BUT THE EXACT FOLLOWING JSON format: [{each_criteria_name: [{Grade: given_grade, Areas for Improvement: What to improve (MUST HAVE}]}] 
   
 
@@ -79,22 +83,20 @@ async function generateGrade(criteria, assignment) {
 
   Assignment: ${assignment}
 
-  Criteria: ${criteria}
+  Here is the Criteria iin the format [{criteria_name: [{grade: description}]}]: ${rubric}
       `
-
-  console.log(prompt)
     
+    console.log("loading grading")
    let response = ''
    const stream = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo-16k',
+    model: 'gpt-4',
     messages: [{ role: 'user', content: prompt }],
     stream: true,
-    temperature: 0.1,
+    temperature: 0.5,
    })
    for await (const part of stream) {
     response += (part.choices[0]?.delta?.content || '');
   } 
-  console.log(response)
   return(response) 
 
 }
@@ -170,11 +172,11 @@ export async function GET(request, res) {
       // Handle error accordingly
       return NextResponse.json({ error: 'Failed to process PDF' });
   }
- console.log(allText)
- // console.log(rubricText)
+ 
  const response = await generateGrade(rubricText, allText);
- //console.log(response)
+
  const obj = JSON.parse(response);
+ console.log("done")
 
   return NextResponse.json({ data: obj})
 }

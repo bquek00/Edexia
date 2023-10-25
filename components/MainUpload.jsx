@@ -18,6 +18,7 @@ export default function MainUpload({session}) {
   const [ready, setReady] = useState(false)
   const [fid, setFid] = useState(null);
   const [message, setMessage] = useState("Missing file upload")
+  const [rubricError, setRubricError] = useState(false)
   const supabase = createClientComponentClient()
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function MainUpload({session}) {
   }, []);
 
   async function markTest() {
+    console.log("Marking")
     try {
       const response = await fetch(`/api/test?fid=${fid}`); // Replace 'your-endpoint' with the actual endpoint URL
       if (!response.ok) {
@@ -32,9 +34,16 @@ export default function MainUpload({session}) {
       }
       
       const data = await response.json();
-      console.log(data)
-      setResults(data)
-      setReady(true)
+
+      if (!data.data) {
+        setLoading(false)
+        setRubricError(true)
+      }
+      else {
+        setLoading(false)
+        setResults(data)
+        setReady(true)
+      }
   
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -65,7 +74,7 @@ const uploadFiles = async () => {
   }
 
   // Upload file here
-  console.log(fid)
+  //console.log(fid)
   const fileExt = assignment.name.split('.').pop()
   const filePath = `${session.user.id}/assignment-${fid}.${fileExt}`
 
@@ -100,31 +109,42 @@ const uploadFiles = async () => {
   return (
     <div className={`flex justify-center w-full h-screen items-center bg-gradient-to-r from-violet-950 via-purple-500 to-fuchsia-500
     overflow-y-scroll overflow-x-hidden`}>
-      <div className={`${ready ? "hidden": "flex"} flex justify-center w-full h-2/5 lg:h-1/4 items-center space-y-10 lg:space-y-0
+      <div className={`${ready || rubricError ? "hidden": "flex"} flex justify-center w-full h-2/5 lg:h-1/4 items-center space-y-10 lg:space-y-0
       lg:space-x-20 text-white flex-col lg:flex-row`}>
         <UploadCard title="Upload Assignment" onUpload={handleAssignment} loading={loading}/>
         <UploadCard title="Upload Rubric" onUpload={handleRubric} loading={loading}/>
       </div>
 
       <button 
-        className={`${loading || ready ? "hidden": "absolute"} text-start text-white m-1 p-1 border-2 text-lg p-2 hover:bg-black/[.3]
+        className={`${loading || ready || rubricError ? "hidden": "absolute"} text-start text-white m-1 p-1 border-2 text-lg p-2 hover:bg-black/[.3]
         focus:ring-violet-300 rounded-lg absolute top-mob lg:top-3/4`}
         onClick={uploadFiles}>
             Mark
       </button>
 
       <p 
-        className={`${loading && !ready ? "absolute": "hidden"} text-center lg:text-start text-white m-1 top-1/4`}>
+        className={`${loading ? "absolute": "hidden"} text-center lg:text-start text-white m-1 top-1/4`}>
             Marking your assignment. Please do not close the window. 
       </p>
       <div 
-        className={`${loading && !ready ? "absolute": "hidden"} text-start text-white m-1 top-1/4 mt-20`}>
+        className={`${loading ? "absolute": "hidden"} text-start text-white m-1 top-1/4 mt-20`}>
            <Loader />
       </div>
 
       <p className={`${missing && !ready ? "absolute" : "hidden"} font-bold text-white absolute top-basic text-center text-shadow`}>{message}</p>
 
       {ready && <ResultTable data={results.data}/>}
+
+      <div className={`${rubricError ? "flex flex-col items-center" : "hidden"} text-white font-bold text-2xl text-center
+      mx-2`}>
+        Error loading criteria. Make sure you uploaded a valid rubric. 
+        <a href="/"
+        className={`text-white m-1 p-1 border-2 text-lg p-2 hover:bg-black/[.3]
+        focus:ring-violet-300 rounded-lg`}
+        >
+            restart
+      </a>
+      </div>
       
     </div>
   )

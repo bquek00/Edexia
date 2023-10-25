@@ -28,7 +28,7 @@ export default async function Home() {
         title="Contact" 
         left={true}
         image="me.jpeg"
-        text="I'm in my final year studying computer science at the University of Queensland, and I have a deep interest in Full Stack Development and web application creation. I developed this automated assignment marking system for a hackathon. Should you come across any issues or have suggestions for enhancement, please feel free to reach out!"
+        text="I'm in my final year studying computer science at the University of Queensland, and I have a deep interest in Full Stack Development and web application creation. I developed this automated assignment marking system for a hackathon. Should you come across any issues or have suggestions for enhancement, feel free to reach out!"
         >
           <ContactLink/>
         </BasicCard>
