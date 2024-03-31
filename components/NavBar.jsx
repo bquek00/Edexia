@@ -29,7 +29,7 @@ export default function NavBar({logout}) {
         height={50}
         alt="logo"
         />
-      <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Edexia</span>
+      <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Grade Pilot</span>
   </a>
   <div className="flex mr-4">
   <button

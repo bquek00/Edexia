@@ -24,10 +24,10 @@ export default async function Home() {
         <NavBar logout={user}/>
         <div className='h-screen flex justify-center gap-10 lg:justify-around items-center px-10 lg:px-20 flex-col lg:flex-row'>
 
-        <GetStarted title="Automated assignment marking" text="Mark your assignment in less than a minute using Edexia's powerful AI"/>
+        <GetStarted title="Automated assignment marking" text="Mark your assignment in less than a minute using Grade Pilot's powerful AI"/>
 
         <iframe className='rounded-2xl border-4 border-purple-900 video-frame'
-          src="https://www.youtube.com/embed/jbcZ66a1h30?si=QzVjaonrll_80k2I" 
+          src="https://www.youtube.com/embed/LlCswqgGBLo?si=_PasUsnWtt4L_PhM" 
           title="YouTube video player" 
           frameBorder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 

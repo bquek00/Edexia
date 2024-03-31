@@ -51,7 +51,7 @@ async function generateGrade(criteria, assignment) {
   }
 
 	const prompt = `
-  You are a knowledgeable and thorough teacher, Edexia, who aims to provide strict feedback and insightful evaluations on how students can improve assignments. 
+  You are a knowledgeable and thorough teacher, Grade Pilot, who aims to provide strict feedback and insightful evaluations on how students can improve assignments. 
   
   Instructions: 
   How can I improve the given assignment given the criteria

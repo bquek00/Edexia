@@ -1,6 +1,6 @@
-# Edexia - Automated Assignment Marking
+# Grade Pilot - Automated Assignment Marking
 
-Edexia provides a seamless platform for automated assignment grading, leveraging the capabilities of Next.js, React, and Large Language Learning Models. 
+Grade Pilot provides a seamless platform for automated assignment grading, leveraging the capabilities of Next.js, React, and Large Language Learning Models. 
 
 ## 🌟 Features
 - **Automated Assignment Grading**: Utilise the power of language models to automatically grade assignments with a focus on accuracy and reliability.
