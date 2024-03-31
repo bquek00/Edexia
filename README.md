@@ -28,4 +28,4 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## This project is deployed on Vercel
-https://edexia.vercel.app/
+[https://edexia.vercel.app/](https://gradepilotai.vercel.app/demo)
